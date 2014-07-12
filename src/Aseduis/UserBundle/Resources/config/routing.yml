@@ -1,0 +1,10 @@
+aseduis_user_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AseduisUserBundle:Default:index }
+    
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
+

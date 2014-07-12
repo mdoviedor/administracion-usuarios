@@ -1,0 +1,7 @@
+parameters:
+#    aseduis_egresados.example.class: Aseduis\EgresadosBundle\Example
+
+services:
+#    aseduis_egresados.example:
+#        class: %aseduis_egresados.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

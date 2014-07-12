@@ -1,0 +1,7 @@
+aseduis_frontal_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AseduisFrontalBundle:Default:index }
+
+aseduis_frontal_index:
+    pattern:  /
+    defaults: { _controller: AseduisFrontalBundle:Index:index }

@@ -1,0 +1,3 @@
+aseduis_eventos_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AseduisEventosBundle:Default:index }

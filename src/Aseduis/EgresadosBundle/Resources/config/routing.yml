@@ -1,0 +1,39 @@
+aseduis_egresados_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AseduisEgresadosBundle:Default:index }
+
+_crear:
+    path:     administrador/egresados/crear
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Crear }
+
+_modificar:
+    path:     administrador/egresados/modificar/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Modificar }
+
+_eliminar:
+    path:     administrador/egresados/eliminar/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminar }
+
+_buscar:
+    path:     administrador/egresados/buscar
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Buscar }
+
+_ver:
+    path:     administrador/egresados/ver/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Ver }
+
+_crear:
+    path:     administrador/administrador/crear
+    defaults: { _controller: AseduisEgresadosBundle:Administrador:Crear }
+
+_modificar:
+    path:     administrador/administrador/modificar/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Administrador:Modificar }
+
+_eliminar:
+    path:     administrador/administrador/eliminar/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Administrador:Eliminar }
+
+_buscar:
+    path:     administrador/administrador/buscar
+    defaults: { _controller: AseduisEgresadosBundle:Administrador:Buscar }

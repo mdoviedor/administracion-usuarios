@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="EgresadoEvento" table="egresado_evento">
+    <indexes>
+      <index name="ee_egresado_idx" columns="egresado"/>
+      <index name="ee_evento_idx" columns="evento"/>
+      <index name="ee_conocimientoEvento_idx" columns="conocimientoEvento"/>
+    </indexes>
+    <id name="idegresadoEvento" type="bigint" column="idegresado_evento">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fecharegistro" type="datetime" column="fechaRegistro" nullable="false"/>
+    <many-to-one field="conocimientoevento" target-entity="Conocimientoevento">
+      <join-columns>
+        <join-column name="conocimientoEvento" referenced-column-name="idconocimientoEvento"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="egresado" target-entity="Egresado">
+      <join-columns>
+        <join-column name="egresado" referenced-column-name="idegresado"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="evento" target-entity="Evento">
+      <join-columns>
+        <join-column name="evento" referenced-column-name="idevento"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,7 @@
+parameters:
+#    aseduis_user.example.class: Aseduis\UserBundle\Example
+
+services:
+#    aseduis_user.example:
+#        class: %aseduis_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

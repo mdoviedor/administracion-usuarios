@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="EgresadoProgramaacademico" table="egresado_programaAcademico">
+    <indexes>
+      <index name="eg_pa_egresado_idx" columns="egresado"/>
+      <index name="eg_pa_programaAcademico_idx" columns="programaAcademico"/>
+    </indexes>
+    <id name="idegresadoProgramaacademico" type="integer" column="idegresado_programaAcademico">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fechagrado" type="datetime" column="fechaGrado" nullable="true"/>
+    <many-to-one field="programaacademico" target-entity="Programaacademico">
+      <join-columns>
+        <join-column name="programaAcademico" referenced-column-name="idprogramaAcademico"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="egresado" target-entity="Egresado">
+      <join-columns>
+        <join-column name="egresado" referenced-column-name="idegresado"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

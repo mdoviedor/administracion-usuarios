@@ -1,0 +1,7 @@
+parameters:
+#    aseduis_frontal.example.class: Aseduis\FrontalBundle\Example
+
+services:
+#    aseduis_frontal.example:
+#        class: %aseduis_frontal.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
