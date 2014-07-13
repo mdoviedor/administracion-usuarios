@@ -29,14 +29,14 @@ class EgresadoEvento
     private $fecharegistro;
 
     /**
-     * @var \Evento
+     * @var \Conocimientoevento
      *
-     * @ORM\ManyToOne(targetEntity="Evento")
+     * @ORM\ManyToOne(targetEntity="Conocimientoevento")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="evento", referencedColumnName="idevento")
+     *   @ORM\JoinColumn(name="conocimientoEvento", referencedColumnName="idconocimientoEvento")
      * })
      */
-    private $evento;
+    private $conocimientoevento;
 
     /**
      * @var \Egresado
@@ -49,14 +49,14 @@ class EgresadoEvento
     private $egresado;
 
     /**
-     * @var \Conocimientoevento
+     * @var \Evento
      *
-     * @ORM\ManyToOne(targetEntity="Conocimientoevento")
+     * @ORM\ManyToOne(targetEntity="Evento")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="conocimientoEvento", referencedColumnName="idconocimientoEvento")
+     *   @ORM\JoinColumn(name="evento", referencedColumnName="idevento")
      * })
      */
-    private $conocimientoevento;
+    private $evento;
 
 
 
@@ -94,26 +94,26 @@ class EgresadoEvento
     }
 
     /**
-     * Set evento
+     * Set conocimientoevento
      *
-     * @param \Aseduis\FrontalBundle\Entity\Evento $evento
+     * @param \Aseduis\FrontalBundle\Entity\Conocimientoevento $conocimientoevento
      * @return EgresadoEvento
      */
-    public function setEvento(\Aseduis\FrontalBundle\Entity\Evento $evento = null)
+    public function setConocimientoevento(\Aseduis\FrontalBundle\Entity\Conocimientoevento $conocimientoevento = null)
     {
-        $this->evento = $evento;
+        $this->conocimientoevento = $conocimientoevento;
 
         return $this;
     }
 
     /**
-     * Get evento
+     * Get conocimientoevento
      *
-     * @return \Aseduis\FrontalBundle\Entity\Evento 
+     * @return \Aseduis\FrontalBundle\Entity\Conocimientoevento 
      */
-    public function getEvento()
+    public function getConocimientoevento()
     {
-        return $this->evento;
+        return $this->conocimientoevento;
     }
 
     /**
@@ -140,25 +140,25 @@ class EgresadoEvento
     }
 
     /**
-     * Set conocimientoevento
+     * Set evento
      *
-     * @param \Aseduis\FrontalBundle\Entity\Conocimientoevento $conocimientoevento
+     * @param \Aseduis\FrontalBundle\Entity\Evento $evento
      * @return EgresadoEvento
      */
-    public function setConocimientoevento(\Aseduis\FrontalBundle\Entity\Conocimientoevento $conocimientoevento = null)
+    public function setEvento(\Aseduis\FrontalBundle\Entity\Evento $evento = null)
     {
-        $this->conocimientoevento = $conocimientoevento;
+        $this->evento = $evento;
 
         return $this;
     }
 
     /**
-     * Get conocimientoevento
+     * Get evento
      *
-     * @return \Aseduis\FrontalBundle\Entity\Conocimientoevento 
+     * @return \Aseduis\FrontalBundle\Entity\Evento 
      */
-    public function getConocimientoevento()
+    public function getEvento()
     {
-        return $this->conocimientoevento;
+        return $this->evento;
     }
 }

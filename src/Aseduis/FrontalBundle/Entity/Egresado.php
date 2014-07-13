@@ -99,16 +99,6 @@ class Egresado
     private $fecharegistro;
 
     /**
-     * @var \Genero
-     *
-     * @ORM\ManyToOne(targetEntity="Genero")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="genero", referencedColumnName="idgenero")
-     * })
-     */
-    private $genero;
-
-    /**
      * @var \Ciudad
      *
      * @ORM\ManyToOne(targetEntity="Ciudad")
@@ -117,6 +107,16 @@ class Egresado
      * })
      */
     private $ciudad;
+
+    /**
+     * @var \Genero
+     *
+     * @ORM\ManyToOne(targetEntity="Genero")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="genero", referencedColumnName="idgenero")
+     * })
+     */
+    private $genero;
 
     /**
      * @var \Tipoidentificacion
@@ -129,16 +129,6 @@ class Egresado
     private $tipoidentificacion;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
-
-    /**
      * @var \Tiposangre
      *
      * @ORM\ManyToOne(targetEntity="Tiposangre")
@@ -147,6 +137,16 @@ class Egresado
      * })
      */
     private $tiposangre;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 
@@ -414,29 +414,6 @@ class Egresado
     }
 
     /**
-     * Set genero
-     *
-     * @param \Aseduis\FrontalBundle\Entity\Genero $genero
-     * @return Egresado
-     */
-    public function setGenero(\Aseduis\FrontalBundle\Entity\Genero $genero = null)
-    {
-        $this->genero = $genero;
-
-        return $this;
-    }
-
-    /**
-     * Get genero
-     *
-     * @return \Aseduis\FrontalBundle\Entity\Genero 
-     */
-    public function getGenero()
-    {
-        return $this->genero;
-    }
-
-    /**
      * Set ciudad
      *
      * @param \Aseduis\FrontalBundle\Entity\Ciudad $ciudad
@@ -457,6 +434,29 @@ class Egresado
     public function getCiudad()
     {
         return $this->ciudad;
+    }
+
+    /**
+     * Set genero
+     *
+     * @param \Aseduis\FrontalBundle\Entity\Genero $genero
+     * @return Egresado
+     */
+    public function setGenero(\Aseduis\FrontalBundle\Entity\Genero $genero = null)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return \Aseduis\FrontalBundle\Entity\Genero 
+     */
+    public function getGenero()
+    {
+        return $this->genero;
     }
 
     /**
@@ -483,29 +483,6 @@ class Egresado
     }
 
     /**
-     * Set user
-     *
-     * @param \Aseduis\FrontalBundle\Entity\User $user
-     * @return Egresado
-     */
-    public function setUser(\Aseduis\FrontalBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Aseduis\FrontalBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * Set tiposangre
      *
      * @param \Aseduis\FrontalBundle\Entity\Tiposangre $tiposangre
@@ -526,5 +503,28 @@ class Egresado
     public function getTiposangre()
     {
         return $this->tiposangre;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Aseduis\FrontalBundle\Entity\User $user
+     * @return Egresado
+     */
+    public function setUser(\Aseduis\FrontalBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Aseduis\FrontalBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

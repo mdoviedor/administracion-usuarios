@@ -38,7 +38,6 @@ class AdministradorController extends Controller {
                 $administrador->setUser($user);
                 $fechaRegistro = new \DateTime("now");
                 $administrador->setFecharegistro($fechaRegistro);
-                $administrador->setIdentificacion($username);
 
                 $em->persist($administrador);
                 $em->flush();

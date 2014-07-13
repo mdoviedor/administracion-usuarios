@@ -24,7 +24,7 @@ class Programaacademico
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=100, nullable=false)
      */
     private $nombre;
 

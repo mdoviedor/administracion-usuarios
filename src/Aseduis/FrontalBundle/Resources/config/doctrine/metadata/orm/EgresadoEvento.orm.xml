@@ -10,9 +10,9 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="fecharegistro" type="datetime" column="fechaRegistro" nullable="false"/>
-    <many-to-one field="conocimientoevento" target-entity="Conocimientoevento">
+    <many-to-one field="evento" target-entity="Evento">
       <join-columns>
-        <join-column name="conocimientoEvento" referenced-column-name="idconocimientoEvento"/>
+        <join-column name="evento" referenced-column-name="idevento"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="egresado" target-entity="Egresado">
@@ -20,9 +20,9 @@
         <join-column name="egresado" referenced-column-name="idegresado"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="evento" target-entity="Evento">
+    <many-to-one field="conocimientoevento" target-entity="Conocimientoevento">
       <join-columns>
-        <join-column name="evento" referenced-column-name="idevento"/>
+        <join-column name="conocimientoEvento" referenced-column-name="idconocimientoEvento"/>
       </join-columns>
     </many-to-one>
   </entity>

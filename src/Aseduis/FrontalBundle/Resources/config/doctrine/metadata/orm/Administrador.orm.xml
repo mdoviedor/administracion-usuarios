@@ -10,16 +10,16 @@
     </id>
     <field name="identificacion" type="string" column="identificacion" length="18" nullable="false"/>
     <field name="nombres" type="string" column="nombres" length="80" nullable="false"/>
-    <field name="apellidos" type="string" column="apellidos" length="45" nullable="false"/>
-    <field name="fecharegistro" type="string" column="fechaRegistro" length="45" nullable="false"/>
-    <many-to-one field="tipoidentificacion" target-entity="Tipoidentificacion">
-      <join-columns>
-        <join-column name="tipoIdentificacion" referenced-column-name="idtipoIdentificacion"/>
-      </join-columns>
-    </many-to-one>
+    <field name="apellidos" type="string" column="apellidos" length="80" nullable="false"/>
+    <field name="fecharegistro" type="datetime" column="fechaRegistro" nullable="false"/>
     <many-to-one field="user" target-entity="User">
       <join-columns>
         <join-column name="user" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="tipoidentificacion" target-entity="Tipoidentificacion">
+      <join-columns>
+        <join-column name="tipoIdentificacion" referenced-column-name="idtipoIdentificacion"/>
       </join-columns>
     </many-to-one>
   </entity>

@@ -22,14 +22,14 @@
     <field name="egresadouis" type="boolean" column="egresadoUis" nullable="false"/>
     <field name="noticias" type="boolean" column="noticias" nullable="false"/>
     <field name="fecharegistro" type="datetime" column="fechaRegistro" nullable="false"/>
-    <many-to-one field="tiposangre" target-entity="Tiposangre">
-      <join-columns>
-        <join-column name="tipoSangre" referenced-column-name="idtipoSangre"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="user" target-entity="User">
       <join-columns>
         <join-column name="user" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="tiposangre" target-entity="Tiposangre">
+      <join-columns>
+        <join-column name="tipoSangre" referenced-column-name="idtipoSangre"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="tipoidentificacion" target-entity="Tipoidentificacion">
@@ -37,14 +37,14 @@
         <join-column name="tipoIdentificacion" referenced-column-name="idtipoIdentificacion"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="ciudad" target-entity="Ciudad">
-      <join-columns>
-        <join-column name="ciudad" referenced-column-name="idciudad"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="genero" target-entity="Genero">
       <join-columns>
         <join-column name="genero" referenced-column-name="idgenero"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ciudad" target-entity="Ciudad">
+      <join-columns>
+        <join-column name="ciudad" referenced-column-name="idciudad"/>
       </join-columns>
     </many-to-one>
   </entity>

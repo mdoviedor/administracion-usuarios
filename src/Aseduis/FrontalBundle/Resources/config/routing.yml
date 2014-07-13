@@ -5,3 +5,8 @@ aseduis_frontal_homepage:
 aseduis_frontal_index:
     pattern:  /
     defaults: { _controller: AseduisFrontalBundle:Index:index }
+ 
+#Recibe el id correspondiente al iddepartamento del modelo Departamento
+aseduis_frontal_general_buscarciudad:
+    pattern:  generar/buscarCiudad/{id}.{funcion}
+    defaults: { _controller: AseduisFrontalBundle:General:Buscarciudad }

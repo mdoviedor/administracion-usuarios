@@ -3,6 +3,7 @@
 namespace Aseduis\EgresadosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Egresado
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="egresado", indexes={@ORM\Index(name="egresado_genero_idx", columns={"genero"}), @ORM\Index(name="ciudad_genero_idx", columns={"ciudad"}), @ORM\Index(name="egresado_tipoIdentificacion_idx", columns={"tipoIdentificacion"}), @ORM\Index(name="egresado_user_idx", columns={"user"}), @ORM\Index(name="egresado_tipoSangre_idx", columns={"tipoSangre"})})
  * @ORM\Entity
  */
-class Egresado
-{
+class Egresado {
+
     /**
      * @var integer
      *
@@ -25,6 +26,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="identificacion", type="string", length=18, nullable=false)
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $identificacion;
 
@@ -32,6 +37,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="primerNombre", type="string", length=45, nullable=false)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Za0-9 ]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $primernombre;
 
@@ -39,6 +48,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="segundoNombre", type="string", length=45, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Za0-9 ]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $segundonombre;
 
@@ -46,6 +59,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="primerApellido", type="string", length=45, nullable=false)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Za0-9 ]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $primerapellido;
 
@@ -53,6 +70,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="segundoApellido", type="string", length=45, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Za0-9 ]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $segundoapellido;
 
@@ -67,6 +88,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="telefonoFijo", type="string", length=15, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $telefonofijo;
 
@@ -74,6 +99,10 @@ class Egresado
      * @var string
      *
      * @ORM\Column(name="celular", type="string", length=15, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $celular;
 
@@ -148,15 +177,12 @@ class Egresado
      */
     private $tiposangre;
 
-
-
     /**
      * Get idegresado
      *
      * @return integer 
      */
-    public function getIdegresado()
-    {
+    public function getIdegresado() {
         return $this->idegresado;
     }
 
@@ -166,8 +192,7 @@ class Egresado
      * @param string $identificacion
      * @return Egresado
      */
-    public function setIdentificacion($identificacion)
-    {
+    public function setIdentificacion($identificacion) {
         $this->identificacion = $identificacion;
 
         return $this;
@@ -178,8 +203,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getIdentificacion()
-    {
+    public function getIdentificacion() {
         return $this->identificacion;
     }
 
@@ -189,8 +213,7 @@ class Egresado
      * @param string $primernombre
      * @return Egresado
      */
-    public function setPrimernombre($primernombre)
-    {
+    public function setPrimernombre($primernombre) {
         $this->primernombre = $primernombre;
 
         return $this;
@@ -201,8 +224,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getPrimernombre()
-    {
+    public function getPrimernombre() {
         return $this->primernombre;
     }
 
@@ -212,8 +234,7 @@ class Egresado
      * @param string $segundonombre
      * @return Egresado
      */
-    public function setSegundonombre($segundonombre)
-    {
+    public function setSegundonombre($segundonombre) {
         $this->segundonombre = $segundonombre;
 
         return $this;
@@ -224,8 +245,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getSegundonombre()
-    {
+    public function getSegundonombre() {
         return $this->segundonombre;
     }
 
@@ -235,8 +255,7 @@ class Egresado
      * @param string $primerapellido
      * @return Egresado
      */
-    public function setPrimerapellido($primerapellido)
-    {
+    public function setPrimerapellido($primerapellido) {
         $this->primerapellido = $primerapellido;
 
         return $this;
@@ -247,8 +266,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getPrimerapellido()
-    {
+    public function getPrimerapellido() {
         return $this->primerapellido;
     }
 
@@ -258,8 +276,7 @@ class Egresado
      * @param string $segundoapellido
      * @return Egresado
      */
-    public function setSegundoapellido($segundoapellido)
-    {
+    public function setSegundoapellido($segundoapellido) {
         $this->segundoapellido = $segundoapellido;
 
         return $this;
@@ -270,8 +287,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getSegundoapellido()
-    {
+    public function getSegundoapellido() {
         return $this->segundoapellido;
     }
 
@@ -281,8 +297,7 @@ class Egresado
      * @param string $direccionresidencia
      * @return Egresado
      */
-    public function setDireccionresidencia($direccionresidencia)
-    {
+    public function setDireccionresidencia($direccionresidencia) {
         $this->direccionresidencia = $direccionresidencia;
 
         return $this;
@@ -293,8 +308,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getDireccionresidencia()
-    {
+    public function getDireccionresidencia() {
         return $this->direccionresidencia;
     }
 
@@ -304,8 +318,7 @@ class Egresado
      * @param string $telefonofijo
      * @return Egresado
      */
-    public function setTelefonofijo($telefonofijo)
-    {
+    public function setTelefonofijo($telefonofijo) {
         $this->telefonofijo = $telefonofijo;
 
         return $this;
@@ -316,8 +329,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getTelefonofijo()
-    {
+    public function getTelefonofijo() {
         return $this->telefonofijo;
     }
 
@@ -327,8 +339,7 @@ class Egresado
      * @param string $celular
      * @return Egresado
      */
-    public function setCelular($celular)
-    {
+    public function setCelular($celular) {
         $this->celular = $celular;
 
         return $this;
@@ -339,8 +350,7 @@ class Egresado
      *
      * @return string 
      */
-    public function getCelular()
-    {
+    public function getCelular() {
         return $this->celular;
     }
 
@@ -350,8 +360,7 @@ class Egresado
      * @param boolean $egresadouis
      * @return Egresado
      */
-    public function setEgresadouis($egresadouis)
-    {
+    public function setEgresadouis($egresadouis) {
         $this->egresadouis = $egresadouis;
 
         return $this;
@@ -362,8 +371,7 @@ class Egresado
      *
      * @return boolean 
      */
-    public function getEgresadouis()
-    {
+    public function getEgresadouis() {
         return $this->egresadouis;
     }
 
@@ -373,8 +381,7 @@ class Egresado
      * @param boolean $noticias
      * @return Egresado
      */
-    public function setNoticias($noticias)
-    {
+    public function setNoticias($noticias) {
         $this->noticias = $noticias;
 
         return $this;
@@ -385,8 +392,7 @@ class Egresado
      *
      * @return boolean 
      */
-    public function getNoticias()
-    {
+    public function getNoticias() {
         return $this->noticias;
     }
 
@@ -396,8 +402,7 @@ class Egresado
      * @param \DateTime $fecharegistro
      * @return Egresado
      */
-    public function setFecharegistro($fecharegistro)
-    {
+    public function setFecharegistro($fecharegistro) {
         $this->fecharegistro = $fecharegistro;
 
         return $this;
@@ -408,8 +413,7 @@ class Egresado
      *
      * @return \DateTime 
      */
-    public function getFecharegistro()
-    {
+    public function getFecharegistro() {
         return $this->fecharegistro;
     }
 
@@ -419,8 +423,7 @@ class Egresado
      * @param \Aseduis\EgresadosBundle\Entity\Genero $genero
      * @return Egresado
      */
-    public function setGenero(\Aseduis\EgresadosBundle\Entity\Genero $genero = null)
-    {
+    public function setGenero(\Aseduis\EgresadosBundle\Entity\Genero $genero = null) {
         $this->genero = $genero;
 
         return $this;
@@ -431,8 +434,7 @@ class Egresado
      *
      * @return \Aseduis\EgresadosBundle\Entity\Genero 
      */
-    public function getGenero()
-    {
+    public function getGenero() {
         return $this->genero;
     }
 
@@ -442,8 +444,7 @@ class Egresado
      * @param \Aseduis\EgresadosBundle\Entity\Ciudad $ciudad
      * @return Egresado
      */
-    public function setCiudad(\Aseduis\EgresadosBundle\Entity\Ciudad $ciudad = null)
-    {
+    public function setCiudad(\Aseduis\EgresadosBundle\Entity\Ciudad $ciudad = null) {
         $this->ciudad = $ciudad;
 
         return $this;
@@ -454,8 +455,7 @@ class Egresado
      *
      * @return \Aseduis\EgresadosBundle\Entity\Ciudad 
      */
-    public function getCiudad()
-    {
+    public function getCiudad() {
         return $this->ciudad;
     }
 
@@ -465,8 +465,7 @@ class Egresado
      * @param \Aseduis\EgresadosBundle\Entity\Tipoidentificacion $tipoidentificacion
      * @return Egresado
      */
-    public function setTipoidentificacion(\Aseduis\EgresadosBundle\Entity\Tipoidentificacion $tipoidentificacion = null)
-    {
+    public function setTipoidentificacion(\Aseduis\EgresadosBundle\Entity\Tipoidentificacion $tipoidentificacion = null) {
         $this->tipoidentificacion = $tipoidentificacion;
 
         return $this;
@@ -477,8 +476,7 @@ class Egresado
      *
      * @return \Aseduis\EgresadosBundle\Entity\Tipoidentificacion 
      */
-    public function getTipoidentificacion()
-    {
+    public function getTipoidentificacion() {
         return $this->tipoidentificacion;
     }
 
@@ -488,8 +486,7 @@ class Egresado
      * @param \Aseduis\EgresadosBundle\Entity\User $user
      * @return Egresado
      */
-    public function setUser(\Aseduis\EgresadosBundle\Entity\User $user = null)
-    {
+    public function setUser(\Aseduis\EgresadosBundle\Entity\User $user = null) {
         $this->user = $user;
 
         return $this;
@@ -500,8 +497,7 @@ class Egresado
      *
      * @return \Aseduis\EgresadosBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
@@ -511,8 +507,7 @@ class Egresado
      * @param \Aseduis\EgresadosBundle\Entity\Tiposangre $tiposangre
      * @return Egresado
      */
-    public function setTiposangre(\Aseduis\EgresadosBundle\Entity\Tiposangre $tiposangre = null)
-    {
+    public function setTiposangre(\Aseduis\EgresadosBundle\Entity\Tiposangre $tiposangre = null) {
         $this->tiposangre = $tiposangre;
 
         return $this;
@@ -523,8 +518,8 @@ class Egresado
      *
      * @return \Aseduis\EgresadosBundle\Entity\Tiposangre 
      */
-    public function getTiposangre()
-    {
+    public function getTiposangre() {
         return $this->tiposangre;
     }
+
 }

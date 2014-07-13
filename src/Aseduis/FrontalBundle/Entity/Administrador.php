@@ -38,26 +38,16 @@ class Administrador
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidos", type="string", length=45, nullable=false)
+     * @ORM\Column(name="apellidos", type="string", length=80, nullable=false)
      */
     private $apellidos;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="fechaRegistro", type="string", length=45, nullable=false)
+     * @ORM\Column(name="fechaRegistro", type="datetime", nullable=false)
      */
     private $fecharegistro;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
 
     /**
      * @var \Tipoidentificacion
@@ -68,6 +58,16 @@ class Administrador
      * })
      */
     private $tipoidentificacion;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 
@@ -153,7 +153,7 @@ class Administrador
     /**
      * Set fecharegistro
      *
-     * @param string $fecharegistro
+     * @param \DateTime $fecharegistro
      * @return Administrador
      */
     public function setFecharegistro($fecharegistro)
@@ -166,34 +166,11 @@ class Administrador
     /**
      * Get fecharegistro
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getFecharegistro()
     {
         return $this->fecharegistro;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \Aseduis\FrontalBundle\Entity\User $user
-     * @return Administrador
-     */
-    public function setUser(\Aseduis\FrontalBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Aseduis\FrontalBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 
     /**
@@ -217,5 +194,28 @@ class Administrador
     public function getTipoidentificacion()
     {
         return $this->tipoidentificacion;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Aseduis\FrontalBundle\Entity\User $user
+     * @return Administrador
+     */
+    public function setUser(\Aseduis\FrontalBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Aseduis\FrontalBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
