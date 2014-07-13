@@ -3,6 +3,7 @@
 namespace Aseduis\EgresadosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Administrador
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="administrador", indexes={@ORM\Index(name="administrador_user_idx", columns={"user"}), @ORM\Index(name="administrador_tipoIdentificacion_idx", columns={"tipoIdentificacion"})})
  * @ORM\Entity
  */
-class Administrador
-{
+class Administrador {
+
     /**
      * @var integer
      *
@@ -25,6 +26,11 @@ class Administrador
      * @var string
      *
      * @ORM\Column(name="identificacion", type="string", length=18, nullable=false)
+     * @Assert\Range(
+     *      min = "100000",
+     *      max = "999999999999999999",  
+     *      invalidMessage ="Este valor '{{ value }}' debe ser un número valido. Este campo solo puede ser numérico. Intentelo nuevamente."
+     * )
      */
     private $identificacion;
 
@@ -32,20 +38,28 @@ class Administrador
      * @var string
      *
      * @ORM\Column(name="nombres", type="string", length=80, nullable=false)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Za0-9 ]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $nombres;
-
+   
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidos", type="string", length=45, nullable=false)
+     * @ORM\Column(name="apellidos", type="string", length=80, nullable=false)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Za0-9 ]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $apellidos;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="fechaRegistro", type="string", length=45, nullable=false)
+     * @ORM\Column(name="fechaRegistro", type="datetime", nullable=false)
      */
     private $fecharegistro;
 
@@ -69,15 +83,12 @@ class Administrador
      */
     private $tipoidentificacion;
 
-
-
     /**
      * Get idadministrador
      *
      * @return integer 
      */
-    public function getIdadministrador()
-    {
+    public function getIdadministrador() {
         return $this->idadministrador;
     }
 
@@ -87,8 +98,7 @@ class Administrador
      * @param string $identificacion
      * @return Administrador
      */
-    public function setIdentificacion($identificacion)
-    {
+    public function setIdentificacion($identificacion) {
         $this->identificacion = $identificacion;
 
         return $this;
@@ -99,8 +109,7 @@ class Administrador
      *
      * @return string 
      */
-    public function getIdentificacion()
-    {
+    public function getIdentificacion() {
         return $this->identificacion;
     }
 
@@ -110,8 +119,7 @@ class Administrador
      * @param string $nombres
      * @return Administrador
      */
-    public function setNombres($nombres)
-    {
+    public function setNombres($nombres) {
         $this->nombres = $nombres;
 
         return $this;
@@ -122,8 +130,7 @@ class Administrador
      *
      * @return string 
      */
-    public function getNombres()
-    {
+    public function getNombres() {
         return $this->nombres;
     }
 
@@ -133,8 +140,7 @@ class Administrador
      * @param string $apellidos
      * @return Administrador
      */
-    public function setApellidos($apellidos)
-    {
+    public function setApellidos($apellidos) {
         $this->apellidos = $apellidos;
 
         return $this;
@@ -145,19 +151,17 @@ class Administrador
      *
      * @return string 
      */
-    public function getApellidos()
-    {
+    public function getApellidos() {
         return $this->apellidos;
     }
 
     /**
      * Set fecharegistro
      *
-     * @param string $fecharegistro
+     * @param \DateTime $fecharegistro
      * @return Administrador
      */
-    public function setFecharegistro($fecharegistro)
-    {
+    public function setFecharegistro($fecharegistro) {
         $this->fecharegistro = $fecharegistro;
 
         return $this;
@@ -166,10 +170,9 @@ class Administrador
     /**
      * Get fecharegistro
      *
-     * @return string 
+     * @return \DateTime 
      */
-    public function getFecharegistro()
-    {
+    public function getFecharegistro() {
         return $this->fecharegistro;
     }
 
@@ -179,8 +182,7 @@ class Administrador
      * @param \Aseduis\EgresadosBundle\Entity\User $user
      * @return Administrador
      */
-    public function setUser(\Aseduis\EgresadosBundle\Entity\User $user = null)
-    {
+    public function setUser(\Aseduis\EgresadosBundle\Entity\User $user = null) {
         $this->user = $user;
 
         return $this;
@@ -191,8 +193,7 @@ class Administrador
      *
      * @return \Aseduis\EgresadosBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
@@ -202,8 +203,7 @@ class Administrador
      * @param \Aseduis\EgresadosBundle\Entity\Tipoidentificacion $tipoidentificacion
      * @return Administrador
      */
-    public function setTipoidentificacion(\Aseduis\EgresadosBundle\Entity\Tipoidentificacion $tipoidentificacion = null)
-    {
+    public function setTipoidentificacion(\Aseduis\EgresadosBundle\Entity\Tipoidentificacion $tipoidentificacion = null) {
         $this->tipoidentificacion = $tipoidentificacion;
 
         return $this;
@@ -214,8 +214,8 @@ class Administrador
      *
      * @return \Aseduis\EgresadosBundle\Entity\Tipoidentificacion 
      */
-    public function getTipoidentificacion()
-    {
+    public function getTipoidentificacion() {
         return $this->tipoidentificacion;
     }
+
 }

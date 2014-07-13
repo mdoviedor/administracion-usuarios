@@ -1,0 +1,7 @@
+Aseduis\EgresadosBundle\Entity\Administrador:
+    properties:
+        identificacion:
+            - Range:
+                min: 100000
+                max: 999999999999999999
+                invalidMessage: Este valor debe ser un numero valido.

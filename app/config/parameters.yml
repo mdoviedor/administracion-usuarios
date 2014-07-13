@@ -2,7 +2,7 @@
 parameters:
     database_driver: pdo_mysql
     database_host: localhost
-    database_port: null
+    database_port: 3307
     database_name: aseduis
     database_user: root
     database_password: 123456

@@ -1,7 +1,81 @@
-{% extends "::base.html.twig" %}
+{% extends "::administrador.html.twig" %}
+{% block title %}
+    Aseduis
+{% endblock %}
 
-{% block title %}AseduisEgresadosBundle:Administrador:Modificar{% endblock %}
+{% block titulo %}
+    <h2>Administrador: <small>Modificar.</small></h2>
+{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Administrador:Modificar page</h1>
+
+{% block contenido %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        {{ flashMessage }}
+    {% endfor %}
+
+
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('aseduis_egresados_administrador_modificar',{'id': id}) }}" method="post" {{ form_enctype(formAdministrador) }} >
+
+        {{ form_errors(formAdministrador) }}     
+        <div class="form-group">
+            {{ form_label(formAdministrador.identificacion.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.identificacion.first) }}
+                {{ form_widget(formAdministrador.identificacion.first) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formAdministrador.identificacion.second, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.identificacion.second) }}
+                {{ form_widget(formAdministrador.identificacion.second) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formAdministrador.correoElectronico.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.correoElectronico.first) }}
+                {{ form_widget(formAdministrador.correoElectronico.first , {'attr': {'value': administrador.user.email}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formAdministrador.correoElectronico.second, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.correoElectronico.second) }}
+                {{ form_widget(formAdministrador.correoElectronico.second, {'attr': {'value': administrador.user.email}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formAdministrador.nombres, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.nombres) }}
+                {{ form_widget(formAdministrador.nombres) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formAdministrador.apellidos, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.apellidos) }}
+                {{ form_widget(formAdministrador.apellidos) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formAdministrador.tipoidentificacion, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formAdministrador.tipoidentificacion) }}
+                {{ form_widget(formAdministrador.tipoidentificacion) }}
+            </div>
+        </div>
+        {{ form_rest(formAdministrador) }}  
+        <div style="text-align: right">
+            <button type="submit" class="btn btn-success btn-lg"  >
+                <span class="glyphicon glyphicon-save"></span>Guardar</button>
+            <a type="button" class="btn btn-default btn-lg" href="#"  >
+                <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+        </div>
+    </form>
+{% endblock %}
+
+
+{% block javascripts %}
 {% endblock %}
