@@ -21,11 +21,11 @@ class EgresadoProgramaacademicoType extends AbstractType {
                     'label' => ' Fecha de grado:',
                     'required' => false,
                 ))
-                ->add('programaacademico', 'entity', array(
-                    'class' => 'AseduisEgresadosBundle:Programaacademico',
-                    'property' => 'nombre',
-                    'label' => '* Programa Académico:',
-                    'attr' => array('class' => 'form-control')))
+//                ->add('programaacademico', 'entity', array(
+//                    'class' => 'AseduisEgresadosBundle:Programaacademico',
+//                    'property' => 'nombre',
+//                    'label' => '* Programa Académico:',
+//                    'attr' => array('class' => 'form-control')))
         ;
     }
 

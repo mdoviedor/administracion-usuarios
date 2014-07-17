@@ -3,6 +3,7 @@
 namespace Aseduis\EgresadosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Empresalabora
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="empresaLabora", indexes={@ORM\Index(name="empresaLabora_ciudad_idx", columns={"ciudad"}), @ORM\Index(name="empresaLabora_egresado_idx", columns={"egresado"})})
  * @ORM\Entity
  */
-class Empresalabora
-{
+class Empresalabora {
+
     /**
      * @var integer
      *
@@ -25,6 +26,7 @@ class Empresalabora
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -39,6 +41,10 @@ class Empresalabora
      * @var string
      *
      * @ORM\Column(name="telefono", type="string", length=15, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/",
+     *     message="Este valor '{{ value }}' no es permitido. Intentelo nuevamente."
+     * )
      */
     private $telefono;
 
@@ -69,15 +75,12 @@ class Empresalabora
      */
     private $egresado;
 
-
-
     /**
      * Get idempresalabora
      *
      * @return integer 
      */
-    public function getIdempresalabora()
-    {
+    public function getIdempresalabora() {
         return $this->idempresalabora;
     }
 
@@ -87,8 +90,7 @@ class Empresalabora
      * @param string $nombre
      * @return Empresalabora
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
 
         return $this;
@@ -99,8 +101,7 @@ class Empresalabora
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -110,8 +111,7 @@ class Empresalabora
      * @param string $direccion
      * @return Empresalabora
      */
-    public function setDireccion($direccion)
-    {
+    public function setDireccion($direccion) {
         $this->direccion = $direccion;
 
         return $this;
@@ -122,8 +122,7 @@ class Empresalabora
      *
      * @return string 
      */
-    public function getDireccion()
-    {
+    public function getDireccion() {
         return $this->direccion;
     }
 
@@ -133,8 +132,7 @@ class Empresalabora
      * @param string $telefono
      * @return Empresalabora
      */
-    public function setTelefono($telefono)
-    {
+    public function setTelefono($telefono) {
         $this->telefono = $telefono;
 
         return $this;
@@ -145,8 +143,7 @@ class Empresalabora
      *
      * @return string 
      */
-    public function getTelefono()
-    {
+    public function getTelefono() {
         return $this->telefono;
     }
 
@@ -156,8 +153,7 @@ class Empresalabora
      * @param string $cargo
      * @return Empresalabora
      */
-    public function setCargo($cargo)
-    {
+    public function setCargo($cargo) {
         $this->cargo = $cargo;
 
         return $this;
@@ -168,8 +164,7 @@ class Empresalabora
      *
      * @return string 
      */
-    public function getCargo()
-    {
+    public function getCargo() {
         return $this->cargo;
     }
 
@@ -179,8 +174,7 @@ class Empresalabora
      * @param \Aseduis\EgresadosBundle\Entity\Ciudad $ciudad
      * @return Empresalabora
      */
-    public function setCiudad(\Aseduis\EgresadosBundle\Entity\Ciudad $ciudad = null)
-    {
+    public function setCiudad(\Aseduis\EgresadosBundle\Entity\Ciudad $ciudad = null) {
         $this->ciudad = $ciudad;
 
         return $this;
@@ -191,8 +185,7 @@ class Empresalabora
      *
      * @return \Aseduis\EgresadosBundle\Entity\Ciudad 
      */
-    public function getCiudad()
-    {
+    public function getCiudad() {
         return $this->ciudad;
     }
 
@@ -202,8 +195,7 @@ class Empresalabora
      * @param \Aseduis\EgresadosBundle\Entity\Egresado $egresado
      * @return Empresalabora
      */
-    public function setEgresado(\Aseduis\EgresadosBundle\Entity\Egresado $egresado = null)
-    {
+    public function setEgresado(\Aseduis\EgresadosBundle\Entity\Egresado $egresado = null) {
         $this->egresado = $egresado;
 
         return $this;
@@ -214,8 +206,8 @@ class Empresalabora
      *
      * @return \Aseduis\EgresadosBundle\Entity\Egresado 
      */
-    public function getEgresado()
-    {
+    public function getEgresado() {
         return $this->egresado;
     }
+
 }

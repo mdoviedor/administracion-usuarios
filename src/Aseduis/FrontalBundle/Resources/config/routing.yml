@@ -10,3 +10,8 @@ aseduis_frontal_index:
 aseduis_frontal_general_buscarciudad:
     pattern:  generar/buscarCiudad/{id}.{funcion}
     defaults: { _controller: AseduisFrontalBundle:General:Buscarciudad }
+    
+#Recibe el id correspondiente al idtipoprogramaacademico del modelo Tipoprogramaacademico
+aseduis_frontal_general_buscarprogramaacademico:
+    pattern:  generar/buscarProgramaacademico/{id}.{funcion}
+    defaults: { _controller: AseduisFrontalBundle:General:Buscarprogramaacademico }

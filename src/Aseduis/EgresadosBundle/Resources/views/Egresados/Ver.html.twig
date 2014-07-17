@@ -3,34 +3,229 @@
     Aseduis
 {% endblock %}
 {% block titulo %}
-    <h2>Egresado: <small>Parfíl.</small></h2>
+    <h2>Egresado: <small>Perfíl.</small></h2>
 {% endblock %}
 
 
 {% block contenido %}
-    <div class="row">
-        <div class="col-md-12"><h4>Información General</h4></div>
-     
-    </div>
+    {%if empresaLabora %}
+    {%else%}
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>Atención!</strong> Aún no se ha relacionado la empresa en donde labora el egresado. 
+            <a type="button" class="btn btn-warning btn-xs" href="{{path('aseduis_egresados_agregarempresa',{'id':egresado.idegresado})}}">
+                <span class="glyphicon glyphicon-plus"></span> Agregar
+            </a>
+        </div>
+    {% endif %}
+    {%if egresadoProgramaAcademico %}
+    {%else%}
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>Atención!</strong> Aún no se ha relacionado un programa academico al egresado. 
+            <a type="button" class="btn btn-warning btn-xs" href="{{path('aseduis_egresados_agregarprogramaacademico',{'id':egresado.idegresado})}}">
+                <span class="glyphicon glyphicon-plus"></span> Agregar
+            </a>
+        </div>
+    {% endif %}
 
     <div class="row">
         <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+
+            <button type="button" class="btn btn-default btn-xs">  <span class="glyphicon glyphicon-send"></span> Enviar Correo</button>
+            <a type="button" class="btn btn-success btn-xs" href="{{path('aseduis_egresados_crear')}}">  <span class="glyphicon glyphicon-plus" ></span>  Nuevo Egresado</a>
+            <a type="button" onClick='return ConfirmarAccion();' class="btn btn-primary btn-xs" href="{{path('aseduis_egresados_modificar',{'id':egresado.idegresado})}}">  <span class="glyphicon glyphicon-refresh"></span>Modificar Egresado</a>
+            <a type="button" onClick='return ConfirmarAccion();' class="btn btn-danger btn-xs"  href="{{path('aseduis_egresados_eliminar',{'id':egresado.idegresado})}}">  <span class="glyphicon glyphicon-trash"></span> Eliminar Egresado</a>
+
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;  "><h5>Información General</h5></div>     
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
             <div class="row">
-                <div class="col-md-6">.col-md-6</div>
-                <div class="col-md-6">.col-md-6</div>
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Identificación:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.identificacion}}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Nombres:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.primernombre}} {{egresado.segundonombre}}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Teléfono Fijo:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.telefonofijo}} </h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Ciudad de Residencia:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.ciudad.departamento.nombre}} - {{egresado.ciudad.nombre}}</h5> </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Tipo de Identificación:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.tipoidentificacion.nombre}}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Apellidos:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.primerapellido}} {{egresado.segundoapellido}}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Celular:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.celular}}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Tipo de Sangre:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.tiposangre.nombre}}</h5></div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
-                <div class="col-md-6">.col-md-6</div>
-                <div class="col-md-6">.col-md-6</div>
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Correo Electrónico:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.user.email}}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Género:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.genero.nombre}} </h5> </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Dirección:</h5></div>
+                <div class="col-md-6"><h5>{{egresado.direccionresidencia}}</h5></div>
             </div>
         </div>
     </div>
+
+    <br>   
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            {%if empresaLabora %}
+                <a type="button" onClick='return ConfirmarAccion();' class="btn btn-primary btn-xs" href="{{path('aseduis_egresados_modificarempresa', {'id': empresaLabora.idempresalabora})}}">  <span class="glyphicon glyphicon-refresh"></span> Modificar Empresa</a>
+                <a type="button" onClick='return ConfirmarAccion();' class="btn btn-danger btn-xs" href="{{path('aseduis_egresados_eliminarempresa', {'id': empresaLabora.idempresalabora})}}">  <span class="glyphicon glyphicon-trash"></span>  Eliminar Empresa</a>
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;  "><h5>Empresa</h5></div>     
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Nombre:</h5></div>
+                    <div class="col-md-6"><h5>{{empresaLabora.nombre}}</h5> </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Teléfono:</h5></div>
+                    <div class="col-md-6"><h5>{{empresaLabora.telefono}} </h5> </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Cargo:</h5></div>
+                    <div class="col-md-6"><h5>{{empresaLabora.cargo}}</h5></div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Ubicación:</h5></div>
+                    <div class="col-md-6"><h5>{{empresaLabora.ciudad.departamento.nombre}} - {{empresaLabora.ciudad.nombre}}</h5> </div>
+                </div>   
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="row">
+                    <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF; "><h5>Dirección:</h5></div>
+                    <div class="col-md-6"><h5>{{empresaLabora.direccion}}</h5></div>
+                </div>  
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;  "><p></p></div>     
+        </div>
+    {% endif %}
+
+    <br>    
+
+    {%if egresadoProgramaAcademico %}
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+
+                <a type="button" onClick='return ConfirmarAccion();' class="btn btn-success btn-xs" href="{{path('aseduis_egresados_agregarprogramaacademico',{'id':egresado.idegresado})}}">
+                    <span class="glyphicon glyphicon-plus"></span> Agregar Programa Acádemico
+                </a>
+
+
+            </div>
+        </div>
+
+        <table class="table table-hover table-responsive table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Progrmas Cursados
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                {%for item in egresadoProgramaAcademico %}
+                    <tr>
+                        <td>
+                            {{item.programaacademico.nombre}}
+                        </td>
+                        <td>
+                            <a href="{{path('aseduis_egresados_eliminarprogramaacademico',{'id': item.idegresadoProgramaacademico})}}"><span class="glyphicon glyphicon-trash"></span>Eliminar</a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+
+
+
+    {% endif %}
+
 
 {% endblock %}
 
 
 {% block javascripts %}
-
+    <script type="text/javascript">
+        function ConfirmarAccion()
+        {
+            if (confirm("¿Desea ejecutar esta acción?"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    </script>
 {% endblock %}

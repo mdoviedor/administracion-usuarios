@@ -5,11 +5,13 @@ aseduis_egresados_homepage:
 aseduis_egresados_crear:
     path:     administrador/egresados/crear
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Crear }
-
+    
+#Recibe el id corrempondiente al idegresado del Modelo Egresado
 aseduis_egresados_modificar:
     path:     administrador/egresados/modificar/{id}
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Modificar }
 
+#Recibe el id corrempondiente al idegresado del Modelo Egresado
 aseduis_egresados_eliminar:
     path:     administrador/egresados/eliminar/{id}
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminar }
@@ -17,15 +19,52 @@ aseduis_egresados_eliminar:
 aseduis_egresados_buscar:
     path:     administrador/egresados/buscar
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Buscar }
+    
+    #EMPRESA EGRESADOS
 
+#Recibe el id corrempondiente al idegresado del Modelo Egresado
 aseduis_egresados_ver:
     path:     administrador/egresados/ver/{id}
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Ver }
+ 
+#Recibe el id corrempondiente al idegresado del Modelo Egresado
+aseduis_egresados_agregarempresa:
+    path:     administrador/egresados/agregarEmpresa/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Agregarempresa }
+
+#Recibe el id correspondiente al idempresalabora del modelo Empresalabora
+aseduis_egresados_modificarempresa:
+    path:     administrador/egresados/modificarEmpresa/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Modificarempresa }
+
+#Recibe el id correspondiente al idempresalabora del modelo Empresalabora
+aseduis_egresados_eliminarempresa:
+    path:     administrador/egresados/eliminarEmpresa/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminarempresa }
+    
+        #PROGRAMA ACADEMICO EGRESADOS
+ 
+#Recibe el id corrempondiente al idegresado del Modelo Egresado
+aseduis_egresados_agregarprogramaacademico:
+    path:     administrador/egresados/agregarProgramaAcademico/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Agregarprogramaacademico }
+    
+#Recibe el id corrempondiente al idegresado_prodramaacademico del Modelo EgresadoProgramaacademico
+aseduis_egresados_eliminarprogramaacademico:
+    path:     administrador/egresados/eliminarProgramaAcademico/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminarprogramaacademico }
+
+
+    
+    ###############
+    #ADMINISTRADOR#
+    ###############
 
 aseduis_egresados_administrador_crear:
     path:     administrador/administrador/crear
     defaults: { _controller: AseduisEgresadosBundle:Administrador:Crear }
 
+#Recibe el id corrempondiente al idadministrador del Modelo Administrador
 aseduis_egresados_administrador_modificar:
     path:     administrador/administrador/modificar/{id}
     defaults: { _controller: AseduisEgresadosBundle:Administrador:Modificar }

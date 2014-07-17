@@ -15,7 +15,7 @@ class EmpresalaboraType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('nombre', 'text', array(
-                    'required' => false,
+                    'required' => true,
                     'label' => '* Nombre:',
                     'attr' => array('class' => 'form-control')))
                 ->add('direccion', 'text', array(

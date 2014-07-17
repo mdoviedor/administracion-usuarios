@@ -4,6 +4,7 @@ namespace Aseduis\FrontalBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Aseduis\FrontalBundle\Entity\Ciudad;
+use Aseduis\FrontalBundle\Entity\Programaacademico;
 
 class GeneralController extends Controller {
     /*
@@ -19,6 +20,23 @@ class GeneralController extends Controller {
 
         return $this->render('AseduisFrontalBundle:General:Buscarciudad.html.twig', array(
                     'ciudades' => $ciudad,
+                    'funcion' => $funcion
+        ));
+    }
+
+    /*
+     * Función para buscar los programas acádemicos correspondientes a un tipo. 
+     * Recibe el id correspondiente al idtipoprogramaacademico del modelo Tipoprogramaacademico.
+     */
+
+    function BuscarprogramaacademicoAction($id, $funcion) {
+        $programaAcademico = new Programaacademico();
+        $em = $this->getDoctrine()->getManager();
+
+        $programaAcademico = $em->getRepository('AseduisFrontalBundle:Programaacademico')->findBy(array('tipoprogramaacademico' => $id));
+
+        return $this->render('AseduisFrontalBundle:General:Buscarprogramaacademico.html.twig', array(
+                    'programaAcademico' => $programaAcademico,
                     'funcion' => $funcion
         ));
     }

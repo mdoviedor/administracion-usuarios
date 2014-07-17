@@ -1,0 +1,5 @@
+<select id="{{funcion}}" name="{{funcion}}" class="form-control">
+    {%for programa in programaAcademico%}
+        <option value="{{programa.idprogramaacademico}}">{{programa.nombre}}</option>
+    {%endfor%}
+</select>

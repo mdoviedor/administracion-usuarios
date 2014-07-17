@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block titulo %}
-    <h2>Egresado Empresa: <small>Crear.</small></h2>
+    <h2>Egresado Empresa: <small>Modificar.</small></h2>
 {% endblock %}
 
 
 {% block contenido %}
-    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('aseduis_egresados_agregarempresa', {'id':id}) }}" method="post" {{ form_enctype(formEmpresaLabora) }} >
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('aseduis_egresados_modificarempresa', {'id':id}) }}" method="post" {{ form_enctype(formEmpresaLabora) }} >
 
 
         {{ form_errors(formEmpresaLabora) }}   
@@ -39,11 +39,11 @@
                 {{ form_widget(formEmpresaLabora.telefono) }}
             </div>
         </div>
-        <label>Ciudad de ubicación de la empresa.   </label>
+                <label>Ciudad de ubicación de la empresa: {{ empresaLabora.ciudad.departamento.nombre | upper }} - {{ empresaLabora.ciudad.nombre | upper }}  </label>
         <div class="form-group">
             <label class="col-sm-3 control-label">Departamento:</label>
             <div class="col-sm-8">
-                <select id="departamentoCiudadEmpresa" name="departamentoCiudadEmpresa" class="form-control" required="true">
+                <select id="departamentoCiudadEmpresa" name="departamentoCiudadEmpresa" class="form-control" >
                     <option value="">SELECCIONAR</option>
                     {% for departamento in departamentos %}
                         <option value="{{departamento.iddepartamento}}">{{departamento.nombre}}</option>
@@ -127,3 +127,4 @@
             }
     </script>
 {% endblock %}
+
