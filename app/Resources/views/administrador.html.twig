@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">ASEDUIS</a>
+                <a class="navbar-brand" href="http://aseduis.org">ASEDUIS</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -19,20 +19,20 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{path('aseduis_egresados_buscar')}}">Egresados</a></li>  
-                    <li><a href="{{path('aseduis_egresados_enviarcorreoelectronicomasivo')}}">Correos Masivos</a></li>   
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Producción en Desarrollo</a></li> 
-                            <li><a href="#">Perfil</a></li>
+                            <li><a href="{{path('aseduis_egresados_buscar')}}">Egresados</a></li> 
+                            <li><a href="{{path('aseduis_egresados_administrador_buscar')}}">Administradores</a></li> 
                             <li class="divider"></li>
-                            <li><a href="#">Ayuda</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Salir</a></li>                       
+                            <li><a href="{{path('aseduis_egresados_enviarcorreoelectronicomasivo')}}">Correos Masivos</a></li>  
+
 
                         </ul>
                     </li>
+
+                    <li><a href="{{path('logout')}}">Cerrar Sesión</a></li>  
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

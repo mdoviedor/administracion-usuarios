@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                     <label class="listaProgramaAcademico">Programa Académico:</label>
                                     <select class="form-control" id="listaProgramaAcademico" name="listaProgramaAcademico">
-                                        <option>Seleccionar</option>
+                                        <option value="0">Seleccionar</option>
                                         {%for item in programaAcademico%}
                                             <option value="{{item.idprogramaacademico}}">{{item.nombre}}</option>
                                         {%endfor%}
@@ -338,6 +338,7 @@
             var desde;
             var hasta;
             var identificacion;
+            var programaAcademico;
 
             identificacion = $('#campoNumeroDocumentoIdentidad').val();
             primerNombre = $('#campoPrimerNombre').val();
@@ -347,11 +348,12 @@
             desde = $('#campoDesde').val();
             hasta = $('#campoHasta').val();
             tamano = $('#listaTamano').val();
+            programaAcademico = $('#listaProgramaAcademico').val();
 
 
             if ((identificacion == "" || identificacion == null) && (primerNombre == "" || primerNombre == null) &&
                     (segundoNombre == "" || segundoNombre == null) && (segundoApellido == "" || segundoApellido == null)
-                    && (primerApellido == "" || primerApellido == null)  && (desde == "" || desde == null)
+                    && (primerApellido == "" || primerApellido == null) && (desde == "" || desde == null) && (programaAcademico == "0" || programaAcademico == null)
                     && (hasta == "" || hasta == null)) {
 
                 var url;
@@ -362,9 +364,9 @@
             }
             else {
                 var formulario;
-                formulario = $('#formularioBuscarProduccion');
+                formulario = $('#formBuscarEgresado');
                 var url;
-                url = "{{ path('aseduis_egresados_buscar', {'limite':'text'}) }}";
+                url = "{{ path('aseduis_egresados_busquedafiltros', {'limite':'text'}) }}";
                 url = url.replace("text", tamano);
 
                 $.ajax({

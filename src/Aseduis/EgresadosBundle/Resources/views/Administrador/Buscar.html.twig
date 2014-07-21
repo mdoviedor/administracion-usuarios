@@ -1,7 +1,92 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}AseduisEgresadosBundle:Administrador:Buscar{% endblock %}
-
-{% block body %}
-<h1>Welcome to the Administrador:Buscar page</h1>
+{% extends "::administrador.html.twig" %}
+{% block title %}
+    Aseduis
 {% endblock %}
+
+{% block titulo %}
+    <h2>Administrador: <small>Buscar.</small></h2>
+{% endblock %}
+
+
+{% block contenido %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Felicidades!</strong> {{ flashMessage }}
+            </div>
+
+        </div>
+    {% endfor %}
+
+
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <a type="button" class="btn btn-success btn-xs" href="{{path('aseduis_egresados_administrador_crear')}}">  <span class="glyphicon glyphicon-plus" ></span>  Nuevo Administrador</a>
+       
+        </div>
+    </div>
+    <br>
+
+    <div class="table-responsive">
+        <div id="administradores">
+            <table class="table table-condensed table-hover table-striped">
+                <thead>
+                    <tr>                      
+                        <th>Identificación</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Correo Electrónico</th>                       
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for administrador in administrador%}
+                        <tr>
+                            <td>{{administrador.identificacion}}</td>
+                            <td>{{administrador.nombres}} </td>
+                            <td>{{administrador.apellidos}} </td>
+                            <td>{{administrador.user.email}}</td>                     
+                            <td>
+                                <a onClick='return ConfirmarAccion();' href="{{ path('aseduis_egresados_administrador_modificar',{'id':administrador.idadministrador}) }}">
+                                    <span class="glyphicon glyphicon-refresh"></span> Modificar
+                                </a>
+                            </td>
+                            <td>
+                                <a onClick='return ConfirmarAccion();'  href="{{ path('aseduis_egresados_administrador_eliminar',{'id':administrador.idadministrador}) }}">
+                                    <span class="glyphicon glyphicon-trash"></span> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    {%endfor%}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function ConfirmarAccion()
+        {
+            if (confirm("¿Desea ejecutar esta acción?"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    </script>
+
+{% endblock %}
+

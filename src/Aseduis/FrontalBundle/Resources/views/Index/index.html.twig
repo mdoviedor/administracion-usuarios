@@ -1,20 +1,76 @@
 {% extends "::index.html.twig" %}
 {% block contenido %}
-<h3>Iniciar Sesión</h3>
-{% if error %}
-<div id="login-error">{{ error.message|trans }}</div>
-{% endif %}
-<form action="{{ path('login_check') }}" method="post">
-    <input type="hidden" name="_csrf_token" value="{% render(controller('AseduisUserBundle:Security:getToken')) %}" />
 
-    <label for="username">Usuario</label><br>
-    <input id="username" type="text" name="_username" value="{{ last_username }}" />  <br>
+    <br><br>
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <br><br>
+            <div style="width: 590px" class="center-block">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
 
-    <label for="password">Contraseña</label><br>
-    <input id="password" type="password" name="_password" /><br><br>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="{{ asset('images/aseduis/aseduis1.jpg') }}" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{{ asset('images/aseduis/aseduis2.jpg') }}" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="{{ asset('images/aseduis/aseduis3.jpg') }}" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
 
-    <input type="submit" name="login" value="Iniciar sesión" />  
+                    </div>
 
-</form>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div style="padding: 60px; background: #f8f8f8; ">
+                <br>
+                <h3>Iniciar Sesión</h3>
+                {% if error %}
+                    <div id="login-error">{{ error.message|trans }}</div>
+                {% endif %}
+                <form action="{{ path('login_check') }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{% render(controller('AseduisUserBundle:Security:getToken')) %}" />
+
+                    <label for="username">Usuario</label><br>
+                    <input class="form-control" id="username" type="text" name="_username" value="{{ last_username }}" />  <br>
+
+                    <label for="password">Contraseña</label><br>
+                    <input  class="form-control" id="password" type="password" name="_password" /><br><br>
+                    <div style="text-align: right;">
+                        <button  type="submit" class="btn btn-success" name="login" /> Iniciar Sesión  </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
