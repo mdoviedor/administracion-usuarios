@@ -15,3 +15,8 @@ aseduis_frontal_general_buscarciudad:
 aseduis_frontal_general_buscarprogramaacademico:
     pattern:  generar/buscarProgramaacademico/{id}.{funcion}
     defaults: { _controller: AseduisFrontalBundle:General:Buscarprogramaacademico }
+    
+#Recibe el id correspondiente al idtipoprogramaacademico del modelo Tipoprogramaacademico
+aseduis_frontal_general_buscarprogramaacademicoegresado:
+    pattern:  generar/buscarProgramaacademicoEgresado/{id}
+    defaults: { _controller: AseduisFrontalBundle:General:Buscarprogramaacademicoegresado }

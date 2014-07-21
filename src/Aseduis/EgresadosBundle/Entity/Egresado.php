@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Egresado
  *
  * @ORM\Table(name="egresado", indexes={@ORM\Index(name="egresado_genero_idx", columns={"genero"}), @ORM\Index(name="ciudad_genero_idx", columns={"ciudad"}), @ORM\Index(name="egresado_tipoIdentificacion_idx", columns={"tipoIdentificacion"}), @ORM\Index(name="egresado_user_idx", columns={"user"}), @ORM\Index(name="egresado_tipoSangre_idx", columns={"tipoSangre"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aseduis\EgresadosBundle\Entity\EgresadoRepository")
  */
 class Egresado {
 

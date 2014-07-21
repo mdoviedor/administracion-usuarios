@@ -1,0 +1,101 @@
+{% extends "::administrador.html.twig" %}
+{% block title %}
+    Aseduis
+{% endblock %}
+
+{% block titulo %}
+    <h2>Correo electrónico:</h2>
+{% endblock %}
+
+
+{% block contenido %} 
+
+
+    <p class="lead">Seleccione el criterio para el envio de correos masivos:</p>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form id="formProgramaAcademico" name="formProgramaAcademico" rol="form" action="{{path('aseduis_egresados_enviarcorreoelectronicomasivo')}}" enctype="multipart/form-data" method="post">
+
+
+                <label>Tipo de Programa Acádemico:</label>
+
+                <select id="listaTipoProgramaAcademico" name="listaTipoProgramaAcademico" class="form-control" required="true">
+                    <option value="">SELECCIONAR</option>
+                    {% for tipo in tipoProgramaAcademico %}
+                        <option value="{{tipo.idtipoprogramaacademico}}">{{tipo.nombre}}</option>
+                    {% endfor %}
+                </select>
+
+                <br>
+
+                <label >Programa Acádemico:</label>
+
+                <div id="respuestaProgramaAcademico">
+
+                </div>
+                <br>
+                <div style="text-align: right">
+                    <button type="submit" id="botonBuscarFiltro" name="botonBuscarFiltro" class="btn btn-primary" >
+                        <span class="glyphicon glyphicon-share-alt"> Enviar</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript">
+        var x;
+        x = $(document);
+        x.ready(inicializarEventos);
+
+        function inicializarEventos() {
+
+            var slTipoProgramaAcademico;
+            slTipoProgramaAcademico = $('#listaTipoProgramaAcademico');
+            slTipoProgramaAcademico.change(buscarProgramaAcademico);
+
+            var slDepartamentoCiudadEmpresa;
+            slDepartamentoCiudadEmpresa = $('#departamentoCiudadEmpresa');
+            slDepartamentoCiudadEmpresa.change(buscarCiudadDepartamentoEmpresa);
+
+        }
+        {# 
+            Buscar el programa academico a partir del tipo
+        #}
+            function buscarProgramaAcademico() {
+
+                var slTipoProgramaAcademico;
+                slTipoProgramaAcademico = $('#listaTipoProgramaAcademico').val();
+                var url;
+                url = "{{ path('aseduis_frontal_general_buscarprogramaacademico', {'id': 'text', 'funcion':'listaProgramaAcademico'}) }}";
+                url = url.replace("text", slTipoProgramaAcademico);
+
+                $('#respuestaProgramaAcademico').load(url);
+
+            }
+        {# 
+             Buscar la ciudad en donde se encuentra ubicada la empresa
+        #}
+            function buscarCiudadDepartamentoEmpresa() {
+
+                var slDepartamentoCiudadEmpresa;
+                slDepartamentoCiudadEmpresa = $('#departamentoCiudadEmpresa').val();
+                var url;
+                url = "{{ path('aseduis_frontal_general_buscarciudad', {'id': 'text', 'funcion':'listaCiudadEmpresa'}) }}";
+                url = url.replace("text", slDepartamentoCiudadEmpresa);
+
+                $('#respuestaDepartamentoCiudadEmpresa').load(url);
+
+            }
+    </script>
+
+{% endblock %}
+
+

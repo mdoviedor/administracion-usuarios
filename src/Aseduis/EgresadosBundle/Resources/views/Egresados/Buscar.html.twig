@@ -1,7 +1,392 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}AseduisEgresadosBundle:Egresados:Buscar{% endblock %}
-
-{% block body %}
-<h1>Welcome to the Egresados:Buscar page</h1>
+{% extends "::administrador.html.twig" %}
+{% block title %}
+    Aseduis
 {% endblock %}
+
+{% block titulo %}
+    <h2>Egresado: <small>Buscar.</small></h2>
+{% endblock %}
+
+
+{% block contenido %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Felicidades!</strong> {{ flashMessage }}
+            </div>
+
+        </div>
+    {% endfor %}
+
+
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <a type="button" class="btn btn-success btn-xs" href="{{path('aseduis_egresados_crear')}}">  <span class="glyphicon glyphicon-plus" ></span>  Nuevo Egresado</a>
+            <a type="button" name="botonModificarEgresado" id="botonModificarEgresado"  class="btn btn-primary btn-xs">  <span class="glyphicon glyphicon-refresh"></span>Modificar Egresado</a>
+            <a type="button" name="botonEliminarEgresado" id="botonEliminarEgresado"  class="btn btn-danger btn-xs" >  <span class="glyphicon glyphicon-trash"></span> Eliminar Egresado</a>
+        </div>
+    </div>
+    <br>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">
+                        Filtros de busqueda
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form class="form-inline" id="formBuscarEgresado" name="formBuscarEgresado" rol="form" action="#" enctype="multipart/form-data" method="post">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="campoNumeroDocumentoIdentidad">Número de Documento de Identidad: </label>
+                                    <input class="form-control" name="campoNumeroDocumentoIdentidad" id="campoNumeroDocumentoIdentidad">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="campoPrimerNombre">Primer Nombre: </label>
+                                    <input class="form-control" name="campoPrimerNombre" id="campoPrimerNombre">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoSegundoNombre"> Segundo Nombre: </label>
+                                    <input class="form-control" name="campoSegundoNombre" id="campoSegundoNombre" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="campoPrimerApellido">Primer Apellido: </label>
+                                    <input class="form-control" name="campoPrimerApellido" id="campoPrimerApellido">
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoSegundoApellido"> Segundo Apellido: </label>
+                                    <input class="form-control" name="campoSegundoApellido" id="campoSegundoApellido" >
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="listaProgramaAcademico">Programa Académico:</label>
+                                    <select class="form-control" id="listaProgramaAcademico" name="listaProgramaAcademico">
+                                        <option>Seleccionar</option>
+                                        {%for item in programaAcademico%}
+                                            <option value="{{item.idprogramaacademico}}">{{item.nombre}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </div>                              
+                            </div>
+                        </div>  
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <label>Fecha de graduación</label><br>
+                                <div class="form-group">
+                                    <label for="campoDesde">Desde: </label>
+                                    <input class="form-control" name="campoDesde" id="campoDesde" placeholder="DD/MM/AAAA">
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoHasta"> Hasta: </label>
+                                    <input class="form-control" name="campoHasta" id="campoHasta" placeholder="DD/MM/AAAA" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div style="text-align: right">
+                            <button type="submit" id="botonBuscarFiltro" name="botonBuscarFiltro" class="btn btn-primary" >
+                                <span class="glyphicon glyphicon-search"> Buscar</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="table-responsive">
+        <div id="egresados">
+            <table class="table table-condensed table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Identificación</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Correo Electrónico</th>
+                        <th>Celular</th>
+                        <th>Programa Acádemico</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for egresado in egresados%}
+                        <tr>
+                            <td><input type="radio" name="radioEgresado" id="radioEgresado" class="center-block" value="{{egresado.idegresado}}"></td>
+                            <td>{{egresado.identificacion}}</td>
+                            <td>{{egresado.primernombre}}  {{egresado.segundonombre}}</td>
+                            <td>{{egresado.primerapellido}}  {{egresado.segundoapellido}}</td>
+                            <td>{{egresado.user.email}}</td>
+                            <td>{{egresado.celular}}</td>
+                            <td>{{ render(controller('AseduisFrontalBundle:General:Buscarprogramaacademicoegresado', { 'id': egresado.idegresado })) }}</td>
+                            <td>
+                                <a href="{{ path('aseduis_egresados_ver',{'id':egresado.idegresado}) }}">
+                                    <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                                </a>
+                            </td>
+                        </tr>
+                    {%endfor%}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <select class="center-block" id="listaTamano" name="listaTamano">
+        <option value="{{limite}}">{{limite}}</option>
+        <option value="0">0</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="60">60</option>
+        <option value="90">90</option>
+        <option value="120">120</option>
+        <option value="10000000">Todos</option>
+    </select>
+    <br>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <!-- Modal Eliminar Recurso -->
+    <div class="modal fade" id="modalEliminarEgresado" tabindex="-1" role="dialog" aria-labelledby="modalEliminarEgresadoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Alerta</h4>
+                </div>
+                <div class="modal-body">
+                    Realmente desea ejecutar esta acción.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+                    <button type="button" class="btn btn-danger" id="botonModalEliminarEgresado" href="#">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade " id="radioVacio" tabindex="-1" role="dialog" aria-labelledby="radioVacioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Alerta</h4>
+                </div>
+                <div class="modal-body">
+                    Usted no ha seleccionado ningun elemento. Intentelo de nuevo.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var x;
+        x = $(document);
+        x.ready(inicializarEventos);
+        function inicializarEventos() {
+
+            /*
+             * *********************************
+             * Modificar Egresado*
+             * *********************************
+             */
+
+            var btnModificarEgresado;
+            btnModificarEgresado = $('#botonModificarEgresado');
+            btnModificarEgresado.click(modificarEgresado);
+
+            /*
+             * *****************
+             * Eliminar Egresado*
+             * *****************
+             */
+
+            var btnEliminarEgresado;
+            btnEliminarEgresado = $('#botonEliminarEgresado');
+            btnEliminarEgresado.click(eliminarEgresado);
+
+            var btnModalEliminarEgresado;
+            btnModalEliminarEgresado = $('#botonModalEliminarEgresado');
+            btnModalEliminarEgresado.click(modalEliminarEgresado);
+
+            /*
+             * 
+             */
+
+
+            var btnFiltro;
+            btnFiltro = $('#botonBuscarFiltro');
+            btnFiltro.click(buscarFiltro);
+
+            var sltTamano;
+            sltTamano = $('#listaTamano');
+            sltTamano.change(buscarFiltroTamano);
+
+        }
+
+        function modalEliminarEgresado() {
+
+            var rtEgresado;
+            rtEgresado = $('#radioEgresado:checked').val();
+            var url;
+            url = "{{ path('aseduis_egresados_eliminar', {'id': 'text'}) }}";
+            url = url.replace("text", rtEgresado);
+            window.open(url, '_self');
+
+        }
+
+        function eliminarEgresado() {
+            var rtEgresado;
+            rtEgresado = $('#radioEgresado:checked').val();
+
+            if (rtEgresado == "" || rtEgresado == null) {
+                $('#radioVacio').modal('show');
+            } else {
+                $('#modalEliminarEgresado').modal('show');
+            }
+        }
+
+
+        function modificarEgresado() {
+            var rtEgresado;
+            rtEgresado = $('#radioEgresado:checked').val();
+
+            if (rtEgresado == "" || rtEgresado == null) {
+                $('#radioVacio').modal('show');
+            } else {
+                var url;
+                url = "{{ path('aseduis_egresados_modificar', {'id': 'text'}) }}";
+                url = url.replace("text", rtEgresado);
+                window.open(url, '_self');
+            }
+        }
+
+        function buscarFiltro() {
+            var formulario;
+            formulario = $('#formBuscarEgresado');
+            var url;
+            url = "{{ path('aseduis_egresados_busquedafiltros')}}";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/x-www-form-urlencoded",
+                data: formulario.serialize(),
+                beforeSend: inicioEnvio,
+                success: function(data)
+                {
+                    $('#egresados').html(data);
+                },
+                timeout: 4000,
+                error: problemas
+            });
+            return false;
+        }
+
+        function inicioEnvio()
+        {
+            var x = $("#egresados");
+            x.html('Procesando ...');
+        }
+        function problemas()
+        {
+            $("#egresados").text('Problemas en el servidor. Intentelo de nuevo.');
+        }
+
+
+        function buscarFiltroTamano() {
+
+            var primerNombre;
+            var segundoNombre;
+            var primerApellido;
+            var segundoApellido;
+            var tamano;
+            var desde;
+            var hasta;
+            var identificacion;
+
+            identificacion = $('#campoNumeroDocumentoIdentidad').val();
+            primerNombre = $('#campoPrimerNombre').val();
+            segundoNombre = $('#campoSegundoNombre').val();
+            primerApellido = $('#campoPrimerApellido').val();
+            segundoApellido = $('#campoSegundoApellido').val();
+            desde = $('#campoDesde').val();
+            hasta = $('#campoHasta').val();
+            tamano = $('#listaTamano').val();
+
+
+            if ((identificacion == "" || identificacion == null) && (primerNombre == "" || primerNombre == null) &&
+                    (segundoNombre == "" || segundoNombre == null) && (segundoApellido == "" || segundoApellido == null)
+                    && (primerApellido == "" || primerApellido == null)  && (desde == "" || desde == null)
+                    && (hasta == "" || hasta == null)) {
+
+                var url;
+                url = "{{ path('aseduis_egresados_buscar', {'limite':'text'}) }}";
+                url = url.replace("text", tamano);
+                window.open(url, '_self');
+
+            }
+            else {
+                var formulario;
+                formulario = $('#formularioBuscarProduccion');
+                var url;
+                url = "{{ path('aseduis_egresados_buscar', {'limite':'text'}) }}";
+                url = url.replace("text", tamano);
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/x-www-form-urlencoded",
+                    data: formulario.serialize(),
+                    beforeSend: inicioEnvio,
+                    success: function(data)
+                    {
+                        $('#egresados').html(data);
+                    },
+                    timeout: 4000,
+                    error: problemas
+                });
+                return false;
+            }
+        }
+
+
+
+    </script>
+
+{% endblock %}
+

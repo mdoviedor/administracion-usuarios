@@ -59,6 +59,16 @@ class EgresadosController extends Controller {
 
                 $em->persist($egresado);
                 $em->flush();
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
+                return $this->redirect($this->generateUrl('aseduis_egresados_buscar'));
+            } else {
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
         }
 
@@ -111,6 +121,15 @@ class EgresadosController extends Controller {
 
                 $em->persist($egresado);
                 $em->flush();
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
+                return $this->redirect($this->generateUrl('aseduis_egresados_buscar'));
+            } else {
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
         }
 
@@ -121,16 +140,84 @@ class EgresadosController extends Controller {
         ));
     }
 
+    /*
+     * Recibe el id correspondiente al idegresado del Modelo Egresado
+     */
+
     public function EliminarAction($id) {
-        return $this->render('AseduisEgresadosBundle:Egresados:Eliminar.html.twig', array(
-                        // ...
+        $em = $this->getDoctrine()->getManager();
+        $egresado = new Egresado();
+        $egresado = $em->getRepository('AseduisEgresadosBundle:Egresado')->find($id);
+        $em->remove($egresado);
+        $em->flush();
+        return $this->redirect($this->generateUrl('aseduis_egresados_buscar'));
+//        return $this->render('AseduisEgresadosBundle:Egresados:Eliminar.html.twig', array(
+//                        // ...
+//        ));
+    }
+
+    public function BuscarAction($limite, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $egresado = new Egresado();
+        $programaAcademico = new Programaacademico();
+
+        $programaAcademico = $em->getRepository('AseduisEgresadosBundle:Programaacademico')->findAll();
+        $egresado = $em->getRepository('AseduisEgresadosBundle:Egresado')->findBy(array(), array('idegresado' => 'DESC'), $limite);
+
+        return $this->render('AseduisEgresadosBundle:Egresados:Buscar.html.twig', array(
+                    'egresados' => $egresado,
+                    'limite' => $limite,
+                    'programaAcademico' => $programaAcademico
         ));
     }
 
-    public function BuscarAction() {
-        return $this->render('AseduisEgresadosBundle:Egresados:Buscar.html.twig', array(
-                        // ...
-        ));
+    public function BusquedafiltrosAction(Request $request, $limite) {
+        $em = $this->getDoctrine()->getManager();
+        $egresado = new Egresado();
+
+        if ($request->getMethod() == "POST") {
+            $primerNombre = $request->request->get('campoPrimerNombre');
+            $segundoNombre = $request->request->get('campoSegundoNombre');
+            $primerApellido = $request->request->get('campoPrimerApellido');
+            $segundoApellido = $request->request->get('campoSegundoApellido');
+            $identificacion = $request->request->get('campoNumeroDocumentoIdentidad');
+            $programaAcademico = $request->request->get('listaProgramaAcademico');
+            $desde = $request->request->get('campoDesde');
+            $hasta = $request->request->get('campoHasta');
+
+            if (!$primerNombre) {
+                $primerNombre = "XXX";
+            }
+
+            if (!$segundoNombre) {
+                $segundoNombre = "XXX";
+            }
+
+            if (!$primerApellido) {
+                $primerApellido = "XXX";
+            }
+
+            if (!$segundoApellido) {
+                $segundoApellido = "XXX";
+            }
+
+            if (!$identificacion) {
+                $identificacion = "XXX";
+            }
+            if (!$desde) {
+                $desde = "00/00/0000";
+            }
+
+            if (!$hasta) {
+                $hasta = "00/00/0001";
+            }
+
+            $egresado = $em->getRepository('AseduisEgresadosBundle:Egresado')->busquedaFiltros($identificacion, $primerNombre, $segundoNombre, $primerApellido, $segundoApellido, $desde, $hasta, $limite);
+        
+            return $this->render('AseduisEgresadosBundle:Egresados:Busquedafiltros.html.twig', array(
+                        'egresados' => $egresado,                       
+            ));
+        }
     }
 
     public function VerAction($id) {
@@ -179,7 +266,14 @@ class EgresadosController extends Controller {
                 $empresaLabora->setCiudad($ciudad);
                 $em->persist($empresaLabora);
                 $em->flush();
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
                 return $this->redirect($this->generateUrl('aseduis_egresados_ver', array('id' => $id)));
+            } else {
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
         }
 
@@ -204,7 +298,7 @@ class EgresadosController extends Controller {
 
         $departamento = $em->getRepository('AseduisEgresadosBundle:Departamento')->findAll();
 
-        $empresaLabora = $em->getRepository('AseduisEgresadosBundle:Empresalabora')->find($id);
+        $empresaLabora = $em->getRepository('AseduisEgresadosBundle:Empresalabora')->findOneBy(array('egresado' => $id));
         $formEmpresaLabora = $this->createForm(new EmpresalaboraType, $empresaLabora);
 
         if ($request->getMethod() == 'POST') {
@@ -218,7 +312,15 @@ class EgresadosController extends Controller {
                 }
                 $em->persist($empresaLabora);
                 $em->flush();
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
                 return $this->redirect($this->generateUrl('aseduis_egresados_ver', array('id' => $id)));
+            } else {
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
         }
 
@@ -243,6 +345,10 @@ class EgresadosController extends Controller {
 
         $em->remove($empresaLabora);
         $em->flush();
+
+        $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                'notice', 'La acción se ha realizado con exito.'
+        );
 
         return $this->redirect($this->generateUrl('aseduis_egresados_ver', array('id' => $idEgresado)));
     }
@@ -281,7 +387,14 @@ class EgresadosController extends Controller {
                 $em->persist($egresadoProgramaAcademico);
                 $em->flush();
 
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
                 return $this->redirect($this->generateUrl('aseduis_egresados_ver', array('id' => $id)));
+            } else {
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
         }
 
@@ -304,7 +417,147 @@ class EgresadosController extends Controller {
         $idegresado = $egresadoProgramaAcademico->getEgresado()->getIdegresado();
         $em->remove($egresadoProgramaAcademico);
         $em->flush();
+        $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                'notice', 'La acción se ha realizado con exito.'
+        );
+
+        $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                'notice', 'La acción se ha realizado con exito.'
+        );
         return $this->redirect($this->generateUrl('aseduis_egresados_ver', array('id' => $idegresado)));
+    }
+
+    /*
+     * 
+     * CORREO ELECTRONICO
+     * 
+     */
+
+
+    /*
+     * Recibe el id correspondiente al idegresado del modelo Egresado
+     */
+
+    public function EnviarcorreoelectronicoAction(Request $request, $id) {
+
+        $egresado = new Egresado();
+        $em = $this->getDoctrine()->getManager();
+        $egresado = $em->getRepository('AseduisEgresadosBundle:Egresado')->find($id);
+        $mensaje = $request->request->get('editor');
+        $asunto = $request->request->get('campoAsunto');
+
+
+
+        if ($asunto && $mensaje) {
+            $mensaje = html_entity_decode($mensaje);
+
+            $message = \Swift_Message::newInstance() //Enviar mensaje via correo electrónico
+                    ->setSubject($asunto)
+                    ->setFrom('webmaster@aseduis.org')
+                    ->setTo($egresado->getUser()->getEmail())
+                    ->setBody(
+                    $this->renderView(
+                            'AseduisEgresadosBundle:Egresados:email.html.twig', array('mensaje' => $mensaje)
+                    ), 'text/html');
+            $this->get('mailer')->send($message);
+
+            $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                    'notice', 'La acción se ha realizado con exito.'
+            );
+
+            return $this->redirect($this->generateUrl('aseduis_egresados_ver', array('id' => $id)));
+        }
+
+
+        return $this->render('AseduisEgresadosBundle:Egresados:EmailPersonal.html.twig', array(
+                    'id' => $id
+        ));
+    }
+
+    /*
+     * 
+     * CORREO MASIVO
+     * 
+     */
+
+    /*
+     * Pagina de selección
+     */
+
+    public function EnviarcorreoelectronicomasivoAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $tipoProgramaAcademico = new Programaacademico();
+
+        $tipoProgramaAcademico = $em->getRepository('AseduisEgresadosBundle:Tipoprogramaacademico')->findAll();
+
+        if ($request->getMethod() == 'POST') {
+            $id = $request->request->get('listaProgramaAcademico');
+            if ($id) {
+                return $this->redirect($this->generateUrl('aseduis_egresados_enviarcorreoelectronicomasivopa', array('id' => $id)));
+            }
+        }
+
+        return $this->render('AseduisEgresadosBundle:Egresados:EmailMasivo.html.twig', array(
+                    'tipoProgramaAcademico' => $tipoProgramaAcademico
+        ));
+    }
+
+    /*
+     * Recibe el id correspondiente al idprogramacademico del Modelo Programaacademico
+     * 
+     * Esta Acción permite enviar correos masivos por programas académicos  . 
+     */
+
+    public function EnviarcorreoelectronicomasivopaAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $egresadoProgramaAcademico = new EgresadoProgramaacademico();
+        $programaAcademico = new Programaacademico();
+
+        if ($request->getMethod() == "POST") {
+            $asunto = $request->request->get('campoAsunto');
+            $mensaje = $request->request->get('editor');
+            if ($asunto && $mensaje) {
+                $mensaje = html_entity_decode($mensaje);
+                $egresadoProgramaAcademico = $em->getRepository('AseduisEgresadosBundle:EgresadoProgramaacademico')->findBy(array('programaacademico' => $id));
+
+                foreach ($egresadoProgramaAcademico as $value) {
+                    $para = $value->getEgresado()->getUser()->getEmail();
+
+                    $message = \Swift_Message::newInstance() //Enviar mensaje via correo electrónico
+                            ->setSubject($asunto)
+                            ->setFrom('webmaster@aseduis.org')
+                            ->setTo($para)
+                            ->setBody(
+                            $this->renderView(
+                                    'AseduisEgresadosBundle:Egresados:email.html.twig', array('mensaje' => $mensaje)
+                            ), 'text/html');
+                    $this->get('mailer')->send($message);
+                }
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
+                return $this->redirect($this->generateUrl('aseduis_egresados_enviarcorreoelectronicomasivo'));
+            } else {
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado.'
+                );
+            }
+        }
+
+
+
+        $programaAcademico = $em->getRepository('AseduisEgresadosBundle:Programaacademico')->find($id);
+
+        return $this->render('AseduisEgresadosBundle:Egresados:EmailMasivoPa.html.twig', array(
+                    'id' => $id,
+                    'programaAcademico' => $programaAcademico
+        ));
+    }
+
+    public function EnviarcorreoelectronicomasivointervaloAction(Request $request) {
+        
     }
 
 }

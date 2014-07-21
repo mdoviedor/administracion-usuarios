@@ -10,8 +10,7 @@
 
 {% block contenido %}
     <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('aseduis_egresados_modificarempresa', {'id':id}) }}" method="post" {{ form_enctype(formEmpresaLabora) }} >
-
-
+        
         {{ form_errors(formEmpresaLabora) }}   
 
         <div class="row">

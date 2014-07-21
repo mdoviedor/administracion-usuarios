@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-6" style="text-align: right;">
 
-            <button type="button" class="btn btn-default btn-xs">  <span class="glyphicon glyphicon-send"></span> Enviar Correo</button>
+            <a type="button" class="btn btn-default btn-xs"  href="{{path('aseduis_egresados_enviarcorreoelectronico',{'id':egresado.idegresado})}}">  <span class="glyphicon glyphicon-send"></span> Enviar Correo</a>
             <a type="button" class="btn btn-success btn-xs" href="{{path('aseduis_egresados_crear')}}">  <span class="glyphicon glyphicon-plus" ></span>  Nuevo Egresado</a>
             <a type="button" onClick='return ConfirmarAccion();' class="btn btn-primary btn-xs" href="{{path('aseduis_egresados_modificar',{'id':egresado.idegresado})}}">  <span class="glyphicon glyphicon-refresh"></span>Modificar Egresado</a>
             <a type="button" onClick='return ConfirmarAccion();' class="btn btn-danger btn-xs"  href="{{path('aseduis_egresados_eliminar',{'id':egresado.idegresado})}}">  <span class="glyphicon glyphicon-trash"></span> Eliminar Egresado</a>
@@ -103,13 +103,14 @@
     </div>
 
     <br>   
-    <div class="row">
-        <div class="col-md-6">
+    {%if empresaLabora %}
+        <div class="row">
+            <div class="col-md-6">
 
-        </div>
-        <div class="col-md-6" style="text-align: right;">
-            {%if empresaLabora %}
-                <a type="button" onClick='return ConfirmarAccion();' class="btn btn-primary btn-xs" href="{{path('aseduis_egresados_modificarempresa', {'id': empresaLabora.idempresalabora})}}">  <span class="glyphicon glyphicon-refresh"></span> Modificar Empresa</a>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+
+                <a type="button" onClick='return ConfirmarAccion();' class="btn btn-primary btn-xs" href="{{path('aseduis_egresados_modificarempresa', {'id': empresaLabora.egresado.idegresado})}}">  <span class="glyphicon glyphicon-refresh"></span> Modificar Empresa</a>
                 <a type="button" onClick='return ConfirmarAccion();' class="btn btn-danger btn-xs" href="{{path('aseduis_egresados_eliminarempresa', {'id': empresaLabora.idempresalabora})}}">  <span class="glyphicon glyphicon-trash"></span>  Eliminar Empresa</a>
 
             </div>
@@ -154,9 +155,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;  "><p></p></div>     
-        </div>
     {% endif %}
 
     <br>    

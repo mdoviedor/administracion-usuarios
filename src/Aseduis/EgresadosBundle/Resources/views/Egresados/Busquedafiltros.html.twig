@@ -1,0 +1,34 @@
+<table class="table table-condensed table-hover table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Identificación</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo Electrónico</th>
+            <th>Celular</th>
+            <th>Programa Acádemico</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for egresado in egresados%}
+            <tr>
+                <td><input type="radio" name="radioEgresado" id="radioEgresado" class="center-block" value="{{egresado.idegresado}}"></td>
+                <td>{{egresado.identificacion}}</td>
+                <td>{{egresado.primernombre}}  {{egresado.segundonombre}}</td>
+                <td>{{egresado.primerapellido}}  {{egresado.segundoapellido}}</td>
+                <td>{{egresado.user.email}}</td>
+                <td>{{egresado.celular}}</td>
+                <td>{{ render(controller('AseduisFrontalBundle:General:Buscarprogramaacademicoegresado', { 'id': egresado.idegresado })) }}</td>
+                <td>
+                    <a href="{{ path('aseduis_egresados_ver',{'id':egresado.idegresado}) }}">
+                        <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                    </a>
+                </td>
+            </tr>
+        {%endfor%}
+
+    </tbody>
+
+</table>

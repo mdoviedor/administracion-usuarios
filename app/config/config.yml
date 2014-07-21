@@ -63,10 +63,14 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport:  smtp
-    host:      smtp.secureserver.net
+    host:       
+    auth_mode:  login
     username:  webmaster@aseduis.org
     password:  
-    #spool:     { type: memory }
+    #spool:     { type: memory }    
+    spool:
+        type: file
+        path: "%kernel.root_dir%/../var/spool"
 
 fos_user:
     db_driver: orm 

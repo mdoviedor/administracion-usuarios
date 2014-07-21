@@ -17,8 +17,12 @@ aseduis_egresados_eliminar:
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminar }
 
 aseduis_egresados_buscar:
-    path:     administrador/egresados/buscar
-    defaults: { _controller: AseduisEgresadosBundle:Egresados:Buscar }
+    path:     administrador/egresados/{limite}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Buscar, limite: 30 }
+    
+aseduis_egresados_busquedafiltros:
+    path:     administrador/egresados/busqueda/busquedaFiltros/{limite}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Busquedafiltros, limite: 30 }
     
     #EMPRESA EGRESADOS
 
@@ -41,9 +45,9 @@ aseduis_egresados_modificarempresa:
 aseduis_egresados_eliminarempresa:
     path:     administrador/egresados/eliminarEmpresa/{id}
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminarempresa }
-    
+    ##########################################
         #PROGRAMA ACADEMICO EGRESADOS
- 
+    ##########################################
 #Recibe el id corrempondiente al idegresado del Modelo Egresado
 aseduis_egresados_agregarprogramaacademico:
     path:     administrador/egresados/agregarProgramaAcademico/{id}
@@ -53,7 +57,24 @@ aseduis_egresados_agregarprogramaacademico:
 aseduis_egresados_eliminarprogramaacademico:
     path:     administrador/egresados/eliminarProgramaAcademico/{id}
     defaults: { _controller: AseduisEgresadosBundle:Egresados:Eliminarprogramaacademico }
-
+    ############################
+     #CORREO ELECTRONICO##############
+     ############################
+     #Recibe el id correspondiente al idegresado del modelo Egresado
+aseduis_egresados_enviarcorreoelectronico:
+    path:     administrador/egresados/enviarCorreoElectronico/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Enviarcorreoelectronico }
+     ############################
+     #CORREO ELECTRONICO MASIVO #
+     ############################    
+  
+aseduis_egresados_enviarcorreoelectronicomasivo:
+    path:     administrador/egresados/enviarCorreoElectronicoMasivo/
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Enviarcorreoelectronicomasivo }
+    
+aseduis_egresados_enviarcorreoelectronicomasivopa:
+    path:     administrador/egresados/enviarCorreoElectronicoMasivo/programaAcademico/{id}
+    defaults: { _controller: AseduisEgresadosBundle:Egresados:Enviarcorreoelectronicomasivopa}
 
     
     ###############
